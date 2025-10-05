@@ -8,17 +8,6 @@ public class PlayerController : Actor
     [SerializeField] float _moveSpeed = 5;
     private Animator _anim;
 
-    [SerializeField]
-    Attack _upAttack;
-    [SerializeField]
-    Attack _downAttack;
-    [SerializeField]
-    Attack _leftAttack;
-    [SerializeField]
-    Attack _rightAttack;
-
-    Attack _currentAttack;
-
     private int currentDir;
     public bool lockControls = false;
 
