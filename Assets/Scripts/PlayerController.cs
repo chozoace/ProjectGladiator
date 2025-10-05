@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEngine;
+
+public class PlayerController : Actor
+{
+    [SerializeField] float _moveSpeed = 5;
+    private Animator _anim;
+
+    [SerializeField]
+    Attack _upAttack;
+    [SerializeField]
+    Attack _downAttack;
+    [SerializeField]
+    Attack _leftAttack;
+    [SerializeField]
+    Attack _rightAttack;
+
+    Attack _currentAttack;
+
+    private int currentDir;
+    public bool lockControls = false;
+
+    List<Attack> _attackQueue = new List<Attack>();
+
+    [SerializeField]
+    GameWorld world;
+
+    void Start()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        world.AddToWorld(this);
+    }
+
+    public void AttackFinished()
+    {
+        _anim.enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public override void UpdateSelf()
+    {
+        Vector2 dir = Vector2.zero;
+        if (!lockControls)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                dir.x = -1;
+                currentDir = 1;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                dir.x = 1;
+                currentDir = 3;
+            }
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                dir.y = 1;
+                currentDir = 2;
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                dir.y = -1;
+                currentDir = 0;
+            }
+
+            if (Input.GetKey(KeyCode.J))
+            {
+                if (!_isAttacking)
+                {
+                    //attack
+                    _anim.SetBool("attacking", true);
+                }
+            }
+        }
+
+        dir.Normalize();
+        _rigidBody.linearVelocity = _moveSpeed * dir;
+        _anim.SetInteger("direction", currentDir);
+        _anim.SetFloat("speed", _rigidBody.linearVelocity.magnitude);
+        base.UpdateSelf();
+    }
+
+    public override void FixedUpdateSelf()
+    {
+        base.FixedUpdateSelf();
+    }
+
+    public override void AttackStartPrep()
+    {
+        lockControls = true;
+        base.AttackStartPrep();
+    }
+
+    public override void EndAttackPrep()
+    {
+        lockControls = false;
+        base.EndAttackPrep();
+    }
+}
