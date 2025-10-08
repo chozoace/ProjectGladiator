@@ -1,32 +1,20 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack", menuName = "ScriptableObjects/Attack", order = 0)]
-public class Attack : ScriptableObject, Action
+public class Attack : MonoBehaviour, Action
 {
     [SerializeField]
     int damage;
 
     Actor _attackerRef;
+    PlayerCombatScript _combatScriptRef;
 
     private Animator _anim;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void FixedUpdate()
     {
         if (!_attackerRef.IsAttacking)
         {
-           _anim.SetBool("attacking", false);
+           //_anim.SetBool("attacking", false);
         }
     }
 
@@ -34,21 +22,26 @@ public class Attack : ScriptableObject, Action
     {
         _attackerRef = obj.GetComponent<Actor>();
         _anim = obj.GetComponent<Animator>();
+        _combatScriptRef = obj.GetComponent<PlayerCombatScript>();
         StartAttack();
     }
 
-    private void StartAttack()
+    public void StartAttack()
     {
-
+        gameObject.SetActive(true);
+        GetComponent<SpriteRenderer>().enabled = true;
+        _combatScriptRef.disableAnimator();
     }
 
-    private void EndAttack()
+    public void EndAttack()
     {
-        _anim.SetBool("attacking", false);
+        _combatScriptRef.EndAttack();
+        _combatScriptRef.enableAnimator();
+        Destroy(this);
     }
 
     public string GetActionName()
     {
-        throw new System.NotImplementedException();
+        return null;
     }
 }

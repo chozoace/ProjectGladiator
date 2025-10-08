@@ -7,6 +7,7 @@ public class PlayerController : Actor
 {
     [SerializeField] float _moveSpeed = 5;
     private Animator _anim;
+    private PlayerCombatScript _combatScript;
 
     private int currentDir;
     public bool lockControls = false;
@@ -20,6 +21,7 @@ public class PlayerController : Actor
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        _combatScript = GetComponent<PlayerCombatScript>();
         world.AddToWorld(this);
     }
 
@@ -32,7 +34,7 @@ public class PlayerController : Actor
     public override void UpdateSelf()
     {
         Vector2 dir = Vector2.zero;
-        if (!lockControls)
+        if (!_combatScript._lockControls)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -61,6 +63,10 @@ public class PlayerController : Actor
                 if (!_isAttacking)
                 {
                     //attack
+                    //Take this out to a separate startAttack() call
+                    //Combat Script select attack
+                    _combatScript.StartAttack(currentDir);
+                    //will remove
                     _anim.SetBool("attacking", true);
                 }
             }
@@ -76,17 +82,5 @@ public class PlayerController : Actor
     public override void FixedUpdateSelf()
     {
         base.FixedUpdateSelf();
-    }
-
-    public override void AttackStartPrep()
-    {
-        lockControls = true;
-        base.AttackStartPrep();
-    }
-
-    public override void EndAttackPrep()
-    {
-        lockControls = false;
-        base.EndAttackPrep();
     }
 }

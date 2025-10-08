@@ -2,28 +2,24 @@ using UnityEngine;
 
 public class PlayerAttackBehavior : StateMachineBehaviour
 {
-    [SerializeField]
-    Attack attack;
+    //stats about the individual attack,
+    //should probably rename to attack stats, maybe specific logic for what to do on hit
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Actor actor = animator.GetComponent<Actor>();
-        actor.AttackStartPrep();
-        attack.Execute(actor.gameObject);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        attack.FixedUpdate();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Actor actor = animator.GetComponent<Actor>();
-        actor.EndAttackPrep();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
