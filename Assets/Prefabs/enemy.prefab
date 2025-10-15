@@ -89,8 +89,9 @@ GameObject:
   - component: {fileID: 3173591957462998721}
   - component: {fileID: 4733370753864050637}
   - component: {fileID: 4382706519614863702}
+  - component: {fileID: 4871927082941449619}
   m_Layer: 25
-  m_Name: enemy1
+  m_Name: enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,3 +183,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAttacking: 0
   _hurtbox: {fileID: 3205592970142752585}
+  health: 10
+  _hitstun: 0
+  world: {fileID: 11400000, guid: 89f9252a59606344796efdbca10d57ed, type: 2}
+--- !u!95 &4871927082941449619
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4425723766585574761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc9838915e18267408cc39e733d1d0a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

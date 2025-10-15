@@ -6,16 +6,10 @@ using UnityEngine;
 public class PlayerController : Actor
 {
     [SerializeField] float _moveSpeed = 5;
-    private Animator _anim;
     private PlayerCombatScript _combatScript;
 
     private int currentDir;
     public bool lockControls = false;
-
-    List<Attack> _attackQueue = new List<Attack>();
-
-    [SerializeField]
-    GameWorld world;
 
     void Start()
     {
@@ -62,7 +56,6 @@ public class PlayerController : Actor
             {
                 if (!_isAttacking)
                 {
-                    Debug.Log("startattack from controller");
                     _combatScript.StartAttack(currentDir);
                 }
             }

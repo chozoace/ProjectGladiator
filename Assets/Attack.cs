@@ -3,7 +3,10 @@ using UnityEngine;
 public class Attack : MonoBehaviour, Action
 {
     [SerializeField]
-    int damage;
+    int damage = 5;
+
+    [SerializeField]
+    float hitStunTime = 1;
 
     Actor _attackerRef;
     PlayerCombatScript _combatScriptRef;
@@ -36,7 +39,6 @@ public class Attack : MonoBehaviour, Action
 
     public void StartAttack()
     {
-        Debug.Log("attack log start");
         gameObject.SetActive(true);
         GetComponent<SpriteRenderer>().enabled = true;
         _combatScriptRef.disableAnimator();
@@ -44,10 +46,16 @@ public class Attack : MonoBehaviour, Action
 
     public void EndAttack()
     {
-        Debug.Log("attack log end");
         _combatScriptRef.EndAttack();
         _combatScriptRef.enableAnimator();
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Actor actor = collision.transform.parent.GetComponent<Actor>();
+        actor.TakeDamage(damage, hitStunTime);
+        //knockback
     }
 
     public string GetActionName()
