@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour, Action
         Debug.Log("attack log end");
         _combatScriptRef.EndAttack();
         _combatScriptRef.enableAnimator();
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public string GetActionName()
