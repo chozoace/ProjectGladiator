@@ -47,11 +47,13 @@ public class PlayerCombatScript : MonoBehaviour, IUpdateable
                 _currentAttack = Instantiate(rightAttack, gameObject.transform);
                 break;
         }
+        Debug.Log("combat start");
         _currentAttack.Execute(gameObject);
     }
 
     public void EndAttack()
     {
+        Debug.Log("combat script end");
         _isAttacking = false;
         _lockControls = false;
     }

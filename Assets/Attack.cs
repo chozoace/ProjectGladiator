@@ -10,11 +10,19 @@ public class Attack : MonoBehaviour, Action
 
     private Animator _anim;
 
+    [SerializeField]
+    bool _attackFinished;
+
+    void Start()
+    {
+        _attackFinished = false;
+    }
+
     public void FixedUpdate()
     {
-        if (!_attackerRef.IsAttacking)
+        if (_attackFinished)
         {
-           //_anim.SetBool("attacking", false);
+            EndAttack();
         }
     }
 
@@ -28,6 +36,7 @@ public class Attack : MonoBehaviour, Action
 
     public void StartAttack()
     {
+        Debug.Log("attack log start");
         gameObject.SetActive(true);
         GetComponent<SpriteRenderer>().enabled = true;
         _combatScriptRef.disableAnimator();
@@ -35,9 +44,10 @@ public class Attack : MonoBehaviour, Action
 
     public void EndAttack()
     {
+        Debug.Log("attack log end");
         _combatScriptRef.EndAttack();
         _combatScriptRef.enableAnimator();
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     public string GetActionName()

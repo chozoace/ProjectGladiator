@@ -62,12 +62,8 @@ public class PlayerController : Actor
             {
                 if (!_isAttacking)
                 {
-                    //attack
-                    //Take this out to a separate startAttack() call
-                    //Combat Script select attack
+                    Debug.Log("startattack from controller");
                     _combatScript.StartAttack(currentDir);
-                    //will remove
-                    _anim.SetBool("attacking", true);
                 }
             }
         }
