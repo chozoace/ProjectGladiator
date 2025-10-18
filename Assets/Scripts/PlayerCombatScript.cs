@@ -57,16 +57,4 @@ public class PlayerCombatScript : Fighter
     {
 
     }
-
-    public void disableAnimator()
-    {
-        _anim.enabled = false;
-        _spriteRenderer.enabled = false;
-    }
-
-    public void enableAnimator()
-    {
-        _anim.enabled = true;
-        _spriteRenderer.enabled = true;
-    }
 }

@@ -15,24 +15,24 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 
     public int health = 10;
 
+    public int _fighterSpeed = 4;
+
     [SerializeField]
     protected bool _hitstun = false;
 
     [SerializeField]
     protected GameWorld world;
 
-    [SerializeField]
     protected Attack _currentAttack;
 
-    [SerializeField]
     protected SpriteRenderer _spriteRenderer;
 
-    void Awake()
+    protected virtual void Awake()
     {
         _anim = GetComponent<Animator>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         world.AddToWorld(this);
     }
@@ -70,7 +70,7 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
         _hitstun = true;
         if (_isAttacking)
         {
-            //combat script attack finished test
+            //combat script attack finished 
         }
 
         _anim.SetBool("hitstun", true);
