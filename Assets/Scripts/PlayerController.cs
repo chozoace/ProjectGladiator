@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerController : Actor
+public class PlayerController : MonoBehaviour, IUpdateable
 {
     [SerializeField] float _moveSpeed = 5;
     private PlayerCombatScript _combatScript;
+    private Rigidbody2D _rigidBody;
+    private Animator _anim;
+    [SerializeField]
+    protected GameWorld world;
 
     private int currentDir;
     public bool lockControls = false;
+    public bool _isAttacking;
 
     void Start()
     {
@@ -25,7 +30,7 @@ public class PlayerController : Actor
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
-    public override void UpdateSelf()
+    public void UpdateSelf()
     {
         Vector2 dir = Vector2.zero;
         if (!_combatScript._lockControls)
@@ -65,11 +70,10 @@ public class PlayerController : Actor
         _rigidBody.linearVelocity = _moveSpeed * dir;
         _anim.SetInteger("direction", currentDir);
         _anim.SetFloat("speed", _rigidBody.linearVelocity.magnitude);
-        base.UpdateSelf();
     }
 
-    public override void FixedUpdateSelf()
+    public void FixedUpdateSelf()
     {
-        base.FixedUpdateSelf();
+        
     }
 }

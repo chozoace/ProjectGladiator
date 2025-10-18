@@ -8,8 +8,7 @@ public class Attack : MonoBehaviour, Action
     [SerializeField]
     float hitStunTime = 1;
 
-    Actor _attackerRef;
-    PlayerCombatScript _combatScriptRef;
+    Fighter _combatScriptRef;
 
     private Animator _anim;
 
@@ -31,9 +30,8 @@ public class Attack : MonoBehaviour, Action
 
     public void Execute(GameObject obj)
     {
-        _attackerRef = obj.GetComponent<Actor>();
         _anim = obj.GetComponent<Animator>();
-        _combatScriptRef = obj.GetComponent<PlayerCombatScript>();
+        _combatScriptRef = obj.GetComponent<Fighter>();
         StartAttack();
     }
 
@@ -53,7 +51,7 @@ public class Attack : MonoBehaviour, Action
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Actor actor = collision.transform.parent.GetComponent<Actor>();
+        Fighter actor = collision.transform.parent.GetComponent<Fighter>();
         actor.TakeDamage(damage, hitStunTime);
         //knockback
     }

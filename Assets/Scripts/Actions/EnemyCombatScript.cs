@@ -1,5 +1,5 @@
 
-public class EnemyCombatScript : Actor
+public class EnemyCombatScript : Fighter
 {
     public override void TakeDamage(int damage, float hitstunDuration)
     {

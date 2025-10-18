@@ -24,16 +24,18 @@ public class GamePlayState : GameState
 
     public override void FixedUpdateState()
     {
-        foreach (IUpdateable obj in world.Updateables)
+        for (int i = 0; i < world.Updateables.Count; i++)
         {
+            IUpdateable obj = world.Updateables[i];
             obj.FixedUpdateSelf();
         }
     }
 
     public override void UpdateState()
     {
-        foreach (IUpdateable obj in world.Updateables)
+        for (int i = 0; i < world.Updateables.Count; i++)
         {
+            IUpdateable obj = world.Updateables[i];
             obj.UpdateSelf();
         }
     }

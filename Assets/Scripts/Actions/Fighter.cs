@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class Actor : MonoBehaviour, IUpdateable
+public abstract class Fighter : MonoBehaviour, IUpdateable
 {
     protected Rigidbody2D _rigidBody;
     protected Animator _anim;
@@ -13,8 +13,6 @@ public abstract class Actor : MonoBehaviour, IUpdateable
     [SerializeField]
     protected BoxCollider2D _hurtbox;
 
-    public bool IsAttacking { get { return _isAttacking; } }
-
     public int health = 10;
 
     [SerializeField]
@@ -22,6 +20,12 @@ public abstract class Actor : MonoBehaviour, IUpdateable
 
     [SerializeField]
     protected GameWorld world;
+
+    [SerializeField]
+    protected Attack _currentAttack;
+
+    [SerializeField]
+    protected SpriteRenderer _spriteRenderer;
 
     void Awake()
     {
@@ -78,6 +82,28 @@ public abstract class Actor : MonoBehaviour, IUpdateable
         yield return new WaitForSeconds(hitstunTime);
         _hitstun = false;
         _anim.SetBool("hitstun", false);
+    }
+
+    public virtual void StartAttack(int inputDir)
+    {
+
+    }
+    
+    public virtual void EndAttack()
+    {
+        _isAttacking = false;
+    }
+
+    public virtual void disableAnimator()
+    {
+        _anim.enabled = false;
+        _spriteRenderer.enabled = false;
+    }
+
+    public virtual void enableAnimator()
+    {
+        _anim.enabled = true;
+        _spriteRenderer.enabled = true;
     }
 
 }

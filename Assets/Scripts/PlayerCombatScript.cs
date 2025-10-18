@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class PlayerCombatScript : MonoBehaviour, IUpdateable
+public class PlayerCombatScript : Fighter
 {
-    [SerializeField]
-    public bool _isAttacking;
-
     public bool _lockControls = false;
 
     [SerializeField]
@@ -16,19 +13,13 @@ public class PlayerCombatScript : MonoBehaviour, IUpdateable
     [SerializeField]
     Attack rightAttack;
 
-    Attack _currentAttack;
-
-    Animator _anim;
-    SpriteRenderer _spriteRenderer;
-
 
     void Start()
     {
-        _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void StartAttack(int inputDir)
+    public override void StartAttack(int inputDir)
     {
         _isAttacking = true;
         _lockControls = true;
@@ -48,20 +39,21 @@ public class PlayerCombatScript : MonoBehaviour, IUpdateable
                 break;
         }
         _currentAttack.Execute(gameObject);
+        base.StartAttack(inputDir);
     }
 
-    public void EndAttack()
+    public override void EndAttack()
     {
-        _isAttacking = false;
         _lockControls = false;
+        base.EndAttack();
     }
 
-    public void FixedUpdateSelf()
+    public override void FixedUpdateSelf()
     {
 
     }
 
-    public void UpdateSelf()
+    public override void UpdateSelf()
     {
 
     }
