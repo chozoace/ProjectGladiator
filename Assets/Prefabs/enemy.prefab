@@ -183,12 +183,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec3778ec0ca3d97499c2c84bcaeac3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lockControls: 0
   _isAttacking: 0
   _hurtbox: {fileID: 3205592970142752585}
-  health: 10
+  health: 15
   _fighterSpeed: 2
   _hitstun: 0
   world: {fileID: 11400000, guid: 89f9252a59606344796efdbca10d57ed, type: 2}
+  downAttack: {fileID: 3930346571185572461, guid: 9cf59760d11263c4ebdde9996a245961,
+    type: 3}
+  leftAttack: {fileID: 1648687726636227554, guid: 58940158d723c6445ab5ad6b2087bd82,
+    type: 3}
+  upAttack: {fileID: 6725266599065602776, guid: b41f573c5b555cf49bdcd5671bf725a6,
+    type: 3}
+  rightAttack: {fileID: -2898210661673236822, guid: fcc61a60609f77b45ad4407e160886e5,
+    type: 3}
 --- !u!95 &4871927082941449619
 Animator:
   serializedVersion: 7

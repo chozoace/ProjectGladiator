@@ -1,9 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCombatScript : Fighter
 {
-    public bool _lockControls = false;
-
     [SerializeField]
     Attack downAttack;
     [SerializeField]
@@ -12,12 +11,6 @@ public class PlayerCombatScript : Fighter
     Attack upAttack;
     [SerializeField]
     Attack rightAttack;
-
-
-    void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     public override void StartAttack(int inputDir)
     {
@@ -40,6 +33,28 @@ public class PlayerCombatScript : Fighter
         }
         _currentAttack.Execute(gameObject);
         base.StartAttack(inputDir);
+    }
+
+    public override void TakeDamage(int damage, float hitstunDuration)
+    {
+        if (!_hitstun)
+        {
+            EnterHitstun(hitstunDuration);
+            base.TakeDamage(damage, hitstunDuration);
+        }
+    }
+
+    public override void EnterHitstun(float hitstunTime)
+    {
+        _rigidBody.linearVelocity = Vector2.zero;
+        _lockControls = true;
+        base.EnterHitstun(hitstunTime);
+    }
+
+    public override IEnumerator ExitHitstun(float hitstunTime)
+    {
+        yield return StartCoroutine(base.ExitHitstun(hitstunTime));
+        _lockControls = false;
     }
 
     public override void EndAttack()

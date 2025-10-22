@@ -6,19 +6,24 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 {
     protected Rigidbody2D _rigidBody;
     protected Animator _anim;
+    public bool _lockControls = false;
 
     [SerializeField]
     protected bool _isAttacking = false;
+
+    public bool IsAttacking { get { return _isAttacking; }}
 
     [SerializeField]
     protected BoxCollider2D _hurtbox;
 
     public int health = 10;
 
-    public int _fighterSpeed = 4;
+    public float _fighterSpeed = 4;
 
     [SerializeField]
     protected bool _hitstun = false;
+
+    public bool Hitstun { get { return _hitstun; }}
 
     [SerializeField]
     protected GameWorld world;
@@ -34,6 +39,8 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 
     protected virtual void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidBody = GetComponent<Rigidbody2D>();
         world.AddToWorld(this);
     }
 
@@ -64,20 +71,20 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 
     }
 
-    public void EnterHitstun(float hitstunTime)
+    public virtual void EnterHitstun(float hitstunTime)
     {
         StopAllCoroutines();
         _hitstun = true;
-        if (_isAttacking)
+        if (_isAttacking && _currentAttack != null)
         {
-            //combat script attack finished 
+            _currentAttack.EndAttack();
         }
 
         _anim.SetBool("hitstun", true);
         StartCoroutine(ExitHitstun(hitstunTime));
     }
 
-    IEnumerator ExitHitstun(float hitstunTime)
+    public virtual IEnumerator ExitHitstun(float hitstunTime)
     {
         yield return new WaitForSeconds(hitstunTime);
         _hitstun = false;

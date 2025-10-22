@@ -53,7 +53,6 @@ public class Attack : MonoBehaviour, Action
     {
         Fighter actor = collision.transform.parent.GetComponent<Fighter>();
         actor.TakeDamage(damage, hitStunTime);
-        //knockback
     }
 
     public string GetActionName()

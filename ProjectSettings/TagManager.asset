@@ -32,7 +32,7 @@ TagManager:
   - hitbox
   - enemy
   - enemyHurtbox
-  - 
+  - playerHurtbox
   - 
   - 
   - 
