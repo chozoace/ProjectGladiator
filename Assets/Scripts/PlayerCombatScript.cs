@@ -12,6 +12,14 @@ public class PlayerCombatScript : Fighter
     [SerializeField]
     Attack rightAttack;
 
+    [SerializeField]
+    GameController gameController;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void StartAttack(int inputDir)
     {
         _isAttacking = true;
@@ -65,11 +73,24 @@ public class PlayerCombatScript : Fighter
 
     public override void FixedUpdateSelf()
     {
-
+        base.FixedUpdateSelf();
     }
 
     public override void UpdateSelf()
     {
+        base.UpdateSelf();
+    }
 
+    public override void StartDeath()
+    {
+        if (_isAttacking && _currentAttack != null)
+        {
+            _currentAttack.EndAttack();
+        }
+        _lockControls = true;
+        _dead = true;
+        _anim.SetBool("death", true);
+        _anim.SetBool("hitstun", false);
+        gameController.StartDeath();
     }
 }

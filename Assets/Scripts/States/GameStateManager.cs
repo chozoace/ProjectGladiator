@@ -10,13 +10,17 @@ public class GameStateManager : ScriptableObject
     [SerializeField]
     private GamePlayState gamePlayState;
 
+    [SerializeField]
+    public DeathState deathState;
+
     private GameState currentGameState;
 
     private void OnEnable()
     {
         gameStateMap = new Dictionary<GameStatesEnum, GameState>
         {
-            { GameStatesEnum.GamePlayState, gamePlayState }
+            { GameStatesEnum.GamePlayState, gamePlayState },
+            { GameStatesEnum.DeathState, deathState }
         };
     }
 
@@ -42,5 +46,6 @@ public class GameStateManager : ScriptableObject
 }
 public enum GameStatesEnum
 {
-    GamePlayState
+    GamePlayState,
+    DeathState
 }

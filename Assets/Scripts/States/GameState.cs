@@ -4,6 +4,8 @@ using System.Collections;
 
 public abstract class GameState : ScriptableObject
 {
+    
+
     protected string stateName;
     public virtual string StateName { get { return stateName; } }
 

@@ -89,4 +89,9 @@ public class EnemyCombatScript : Fighter
         _currentState.FixedUpdateState();
         base.FixedUpdateSelf();
     }
+
+    public override void StartDeath()
+    {
+        
+    }
 }

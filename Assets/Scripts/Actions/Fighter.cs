@@ -32,13 +32,16 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 
     protected SpriteRenderer _spriteRenderer;
 
+    public bool _dead = false;
+
     protected virtual void Awake()
     {
-        _anim = GetComponent<Animator>();
+        
     }
 
     protected virtual void Start()
     {
+        _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidBody = GetComponent<Rigidbody2D>();
         world.AddToWorld(this);
@@ -53,7 +56,10 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
     }
     public virtual void UpdateSelf()
     {
-        
+        if(health < 1 && _dead == false)
+        {
+            StartDeath();
+        }
     }
 
     public virtual void FixedUpdateSelf()
@@ -70,6 +76,8 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
     {
 
     }
+
+    public abstract void StartDeath();
 
     public virtual void EnterHitstun(float hitstunTime)
     {
