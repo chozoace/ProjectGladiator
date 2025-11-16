@@ -87,7 +87,7 @@ public class EnemyCombatScript : Fighter
 
     public override void StartDeath()
     {
-        Debug.Log("death");
+        StopAllCoroutines();
          if (_isAttacking && _currentAttack != null)
         {
             _currentAttack.EndAttack();
@@ -100,7 +100,6 @@ public class EnemyCombatScript : Fighter
 
     public override void DeathFinished()
     {
-        Debug.Log("death finished");
         world.RemoveFromWorld(this);
         Destroy(gameObject);
     }

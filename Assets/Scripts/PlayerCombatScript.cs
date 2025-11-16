@@ -83,6 +83,7 @@ public class PlayerCombatScript : Fighter
 
     public override void StartDeath()
     {
+        StopAllCoroutines();
         if (_isAttacking && _currentAttack != null)
         {
             _currentAttack.EndAttack();

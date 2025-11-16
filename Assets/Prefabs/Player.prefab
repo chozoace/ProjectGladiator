@@ -298,10 +298,11 @@ MonoBehaviour:
   _lockControls: 0
   _isAttacking: 0
   _hurtbox: {fileID: 0}
-  health: 1
+  health: 2
   _fighterSpeed: 4
   _hitstun: 0
   world: {fileID: 11400000, guid: 89f9252a59606344796efdbca10d57ed, type: 2}
+  _dead: 0
   downAttack: {fileID: 9114843168290576507, guid: acf0be04bb985bf4f9e5b691eeadeb28,
     type: 3}
   leftAttack: {fileID: 2168537651884941031, guid: b221cb7420161554f82e1797fae6a388,
