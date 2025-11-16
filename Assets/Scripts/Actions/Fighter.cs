@@ -79,6 +79,11 @@ public abstract class Fighter : MonoBehaviour, IUpdateable
 
     public abstract void StartDeath();
 
+    public virtual void DeathFinished()
+    {
+        
+    }
+
     public virtual void EnterHitstun(float hitstunTime)
     {
         StopAllCoroutines();

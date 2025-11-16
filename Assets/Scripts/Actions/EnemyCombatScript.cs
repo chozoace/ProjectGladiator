@@ -76,11 +76,6 @@ public class EnemyCombatScript : Fighter
     public override void UpdateSelf()
     {
         _currentState.UpdateState();
-        if (health < 1)
-        {
-            world.RemoveFromWorld(this);
-            Destroy(gameObject);
-        }
         base.UpdateSelf();
     }
 
@@ -92,6 +87,21 @@ public class EnemyCombatScript : Fighter
 
     public override void StartDeath()
     {
-        
+        Debug.Log("death");
+         if (_isAttacking && _currentAttack != null)
+        {
+            _currentAttack.EndAttack();
+        }
+        _lockControls = true;
+        _dead = true;
+        _anim.SetBool("death", true);
+        _anim.SetBool("hitstun", false);
+    }
+
+    public override void DeathFinished()
+    {
+        Debug.Log("death finished");
+        world.RemoveFromWorld(this);
+        Destroy(gameObject);
     }
 }
